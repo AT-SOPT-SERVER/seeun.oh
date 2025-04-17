@@ -1,9 +1,6 @@
 package org.sopt.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Post {
@@ -24,5 +21,9 @@ public class Post {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public static Post of(String title) {
+        return new Post(title);
     }
 }
