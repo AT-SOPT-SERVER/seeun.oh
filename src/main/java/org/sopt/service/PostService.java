@@ -1,8 +1,11 @@
 package org.sopt.service;
 
+
 import org.sopt.domain.Post;
+import org.sopt.dto.PostResponse;
 import org.sopt.repository.PostRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,10 +18,13 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public void createPost(String title) {
-        Post post = new Post(title);
-        postRepository.save(post);
-        System.out.println("post title: " + post.getTitle());
+    @Transactional
+    public PostResponse createPost(
+            final String title
+    ) {
+        Post postEntity = Post.of(title);
+        Post savedPost = postRepository.save(postEntity);
+        return PostResponse.from(savedPost);
     }
 
     public List<Post> getAllPosts() {
