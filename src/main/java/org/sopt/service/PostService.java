@@ -69,4 +69,14 @@ public class PostService {
         postRepository.deleteById(post.getId());
     }
 
+    @Transactional(readOnly = true)
+    public PostSearchListResponse getListByKeyword(final String keyword) {
+        List<Post> posts = postRepository.findByTitleContaining(keyword);
+        List<PostSearchResponse> searchList = posts.stream()
+                .map(post -> PostSearchResponse.of(post.getId(), post.getTitle()))
+                .toList();
+
+        return PostSearchListResponse.of(searchList);
+    }
+
 }
