@@ -2,6 +2,8 @@ package org.sopt.service;
 
 
 import org.sopt.domain.Post;
+import org.sopt.dto.PostItemResponse;
+import org.sopt.dto.PostListResponse;
 import org.sopt.dto.PostResponse;
 import org.sopt.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,16 @@ public class PostService {
         return PostResponse.from(savedPost);
     }
 
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    @Transactional(readOnly = true)
+    public PostListResponse getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+
+        List<PostItemResponse> postList =  posts.stream()
+                .map(post -> PostItemResponse.of(post.getId(), post.getTitle()))
+                .toList();
+
+        return PostListResponse.of(postList);
+
     }
 
 

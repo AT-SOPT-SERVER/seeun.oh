@@ -2,11 +2,10 @@ package org.sopt.controller;
 
 import org.sopt.common.ApiResponse;
 import org.sopt.common.SuccessCode;
-import org.sopt.domain.Post;
+import org.sopt.dto.PostListResponse;
 import org.sopt.dto.PostRequest;
 import org.sopt.dto.PostResponse;
 import org.sopt.service.PostService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +30,10 @@ public class PostController {
                 .body(ApiResponse.success(SuccessCode.CONTENT_CREATED, postResponse));
     }
 
-    @GetMapping("/posts")
-    public ResponseEntity<?> getAllPosts() {
-        return ResponseEntity.ok(postService.getAllPosts());
+    @GetMapping("")
+    public ResponseEntity<ApiResponse<PostListResponse>> getAllPosts() {
+        PostListResponse listResponse = postService.getAllPosts();
+        return ResponseEntity.status(SuccessCode.GET_ALL_CONTENT.getStatus())
+                .body(ApiResponse.success(SuccessCode.GET_ALL_CONTENT, listResponse));
     }
 }
