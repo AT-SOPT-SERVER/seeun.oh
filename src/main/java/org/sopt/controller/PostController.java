@@ -2,9 +2,7 @@ package org.sopt.controller;
 
 import org.sopt.common.ApiResponse;
 import org.sopt.common.SuccessCode;
-import org.sopt.dto.PostListResponse;
-import org.sopt.dto.PostRequest;
-import org.sopt.dto.PostResponse;
+import org.sopt.dto.*;
 import org.sopt.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +33,16 @@ public class PostController {
         PostListResponse listResponse = postService.getAllPosts();
         return ResponseEntity.status(SuccessCode.GET_ALL_CONTENT.getStatus())
                 .body(ApiResponse.success(SuccessCode.GET_ALL_CONTENT, listResponse));
+    }
+
+    @PatchMapping("/{contentId}")
+    public ResponseEntity<?> updatePost(
+            @PathVariable (name="contentId") Long contentId,
+            @RequestBody PostUpdateRequest postUpdateRequest
+    ) {
+        PostUpdateResponse updateItem = postService.updatePost(contentId, postUpdateRequest.title());
+        return ResponseEntity.status(SuccessCode.UPDATE_CONTENT.getStatus())
+                .body(ApiResponse.success(SuccessCode.UPDATE_CONTENT, updateItem));
+
     }
 }
