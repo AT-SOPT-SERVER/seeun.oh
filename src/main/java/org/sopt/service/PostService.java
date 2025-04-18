@@ -61,4 +61,12 @@ public class PostService {
         return PostUpdateResponse.of(post.getId(), post.getTitle());
     }
 
+    @Transactional
+    public void deletePost(final Long contentId) {
+        Post post = postRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_FOUND_ID.getMessage()));
+
+        postRepository.deleteById(post.getId());
+    }
+
 }

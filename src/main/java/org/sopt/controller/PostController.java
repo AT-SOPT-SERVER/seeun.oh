@@ -55,4 +55,13 @@ public class PostController {
                 .body(ApiResponse.success(SuccessCode.UPDATE_CONTENT, updateItem));
 
     }
+
+    @DeleteMapping("/{contentId}")
+    public ResponseEntity<?> deletePost(
+            @PathVariable Long contentId
+    ) {
+        postService.deletePost(contentId);
+        return ResponseEntity.status(SuccessCode.DELETE_CONTENT.getStatus())
+                .body(ApiResponse.success(SuccessCode.DELETE_CONTENT));
+    }
 }
