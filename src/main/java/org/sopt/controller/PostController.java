@@ -7,6 +7,8 @@ import org.sopt.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 
 @RestController
 @RequestMapping("/api/v1/contents")
@@ -63,5 +65,16 @@ public class PostController {
         postService.deletePost(contentId);
         return ResponseEntity.status(SuccessCode.DELETE_CONTENT.getStatus())
                 .body(ApiResponse.success(SuccessCode.DELETE_CONTENT));
+    }
+
+    @GetMapping(value = "", params = "keyword")
+    public ResponseEntity<ApiResponse<PostSearchListResponse>> getPostsByKeyword(
+            @RequestParam("keyword") String keyword
+    ) {
+        PostSearchListResponse searchList = postService.getListByKeyword(keyword);
+
+        return ResponseEntity.status(SuccessCode.SEARCH_KEYWORD.getStatus())
+                .body(ApiResponse.success(SuccessCode.SEARCH_KEYWORD, searchList));
+
     }
 }
