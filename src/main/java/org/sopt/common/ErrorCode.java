@@ -3,7 +3,8 @@ package org.sopt.common;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
-    INVALID_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다.");
+    INVALID_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    NO_FOUND_ID(HttpStatus.NOT_FOUND, "존재하지 않는 id 입니다.");
 
     private final HttpStatus status;
     private final String message;
