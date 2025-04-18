@@ -5,6 +5,7 @@ import org.sopt.domain.Post;
 import org.sopt.dto.PostItemResponse;
 import org.sopt.dto.PostListResponse;
 import org.sopt.dto.PostResponse;
+import org.sopt.dto.PostUpdateResponse;
 import org.sopt.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,5 +42,17 @@ public class PostService {
 
     }
 
+    @Transactional
+    public PostUpdateResponse updatePost(
+            final Long contentId,
+            final String title
+    ) {
+        Post post = postRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        post.updateTitle(title);
+
+        return PostUpdateResponse.of(post.getId(), post.getTitle());
+    }
 
 }

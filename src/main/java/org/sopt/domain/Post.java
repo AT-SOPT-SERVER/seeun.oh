@@ -23,6 +23,10 @@ public class Post {
         return this.title;
     }
 
+    public void updateTitle(final String newTitle) {
+        this.title = newTitle;
+    }
+
     public static Post of(String title) {
         return new Post(title);
     }
