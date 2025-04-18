@@ -1,11 +1,9 @@
 package org.sopt.service;
 
 
+import org.sopt.common.ErrorCode;
 import org.sopt.domain.Post;
-import org.sopt.dto.PostItemResponse;
-import org.sopt.dto.PostListResponse;
-import org.sopt.dto.PostResponse;
-import org.sopt.dto.PostUpdateResponse;
+import org.sopt.dto.*;
 import org.sopt.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +38,14 @@ public class PostService {
 
         return PostListResponse.of(postList);
 
+    }
+
+    @Transactional(readOnly = true)
+    public PostDetailResponse getPost(final Long contentId) {
+        Post post = postRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_FOUND_ID.getMessage()));
+
+        return PostDetailResponse.of(post.getId(), post.getTitle());
     }
 
     @Transactional

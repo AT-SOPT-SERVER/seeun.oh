@@ -35,6 +35,16 @@ public class PostController {
                 .body(ApiResponse.success(SuccessCode.GET_ALL_CONTENT, listResponse));
     }
 
+    @GetMapping("/{contentId}")
+    public ResponseEntity<ApiResponse<PostDetailResponse>> getPostById(
+            @PathVariable Long contentId
+    ) {
+        PostDetailResponse detailResponse = postService.getPost(contentId);
+        return ResponseEntity.status(SuccessCode.GET_DETAIL_CONTENT.getStatus())
+                .body(ApiResponse.success(SuccessCode.GET_DETAIL_CONTENT, detailResponse));
+
+    }
+
     @PatchMapping("/{contentId}")
     public ResponseEntity<?> updatePost(
             @PathVariable (name="contentId") Long contentId,
