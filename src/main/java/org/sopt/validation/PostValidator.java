@@ -1,9 +1,14 @@
 package org.sopt.validation;
 
+import org.sopt.exception.InvalidRequestException;
+import org.sopt.exception.TooManyRequestException;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static org.sopt.exception.CommonException.*;
+import static org.sopt.exception.ErrorCode.EMPTY_TITLE;
+import static org.sopt.exception.ErrorCode.OVER_LENGTH_TITLE;
+import static org.sopt.exception.ErrorCode.POST_DURATION;
 import static org.sopt.util.GraphemeUtils.getLengthOfEmojiContainableText;
 
 public class PostValidator {
@@ -17,12 +22,12 @@ public class PostValidator {
 
         //입력이 비어있는 경우(공백) 검증
         if(title == null || title.trim().isEmpty()) {
-            throw new IllegalArgumentException(EMPTY_TITLE.getMessage());
+            throw new InvalidRequestException(EMPTY_TITLE);
         }
 
         //30자 초과 검증
         if(count > MAX_TITLE_LENGTH) {
-            throw new IllegalArgumentException(OVER_LENGTH_TITLE.getMessage());
+            throw new InvalidRequestException(OVER_LENGTH_TITLE);
         }
     }
 
@@ -32,7 +37,7 @@ public class PostValidator {
         long timeLimit = COOL_TIME * MIN_TO_SEC;
 
         if (duration.toSeconds() < timeLimit) {
-            throw new IllegalStateException(POST_DURATION.getMessage());
+            throw new TooManyRequestException(POST_DURATION);
         }
     }
 
