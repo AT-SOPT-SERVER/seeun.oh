@@ -5,10 +5,12 @@ import org.sopt.common.ErrorCode;
 import org.sopt.domain.Post;
 import org.sopt.dto.res.*;
 import org.sopt.repository.PostRepository;
+import org.sopt.validation.PostValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -23,6 +25,13 @@ public class PostService {
     public PostCreateResponse createPost(
             final String title
     ) {
+        Optional<Post> lastPost = postRepository.findTopByOrderByCreatedAtDesc();
+
+        // 입력 시간 제한(3분) 검증
+        lastPost.ifPresent(post ->
+            PostValidator.validateCoolTime(post.getCreatedAt())
+        );
+
         Post postEntity = Post.of(title);
         Post savedPost = postRepository.save(postEntity);
         return PostCreateResponse.from(savedPost);
