@@ -9,6 +9,7 @@ import static org.sopt.util.GraphemeUtils.getLengthOfEmojiContainableText;
 public class PostValidator {
     private static final int MAX_TITLE_LENGTH = 30;
     private static final long COOL_TIME = 3;
+    private static final long MIN_TO_SEC = 60;
 
     public static void validateTitleLength(String title) {
         int count = getLengthOfEmojiContainableText(title);
@@ -26,12 +27,12 @@ public class PostValidator {
     }
 
     public static void validateCoolTime(LocalDateTime lastPostTime) {
-        if (lastPostTime != null) {
-            LocalDateTime now = LocalDateTime.now();
-            Duration duration = Duration.between(lastPostTime, now);
-            if (duration.toMinutes() < COOL_TIME) {
-                throw new IllegalStateException(POST_DURATION.getMessage());
-            }
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(lastPostTime, now);
+        long timeLimit = COOL_TIME * MIN_TO_SEC;
+
+        if (duration.toSeconds() < timeLimit) {
+            throw new IllegalStateException(POST_DURATION.getMessage());
         }
     }
 
