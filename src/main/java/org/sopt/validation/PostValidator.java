@@ -12,13 +12,16 @@ public class PostValidator {
 
     public static void validateTitleLength(String title) {
         int count = getLengthOfEmojiContainableText(title);
+        System.out.println("title length(이모지 포함):"+count); //추후 삭제하기
+
+        //입력이 비어있는 경우(공백) 검증
+        if(title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException(EMPTY_TITLE.getMessage());
+        }
+
         //30자 초과 검증
         if(count > MAX_TITLE_LENGTH) {
             throw new IllegalArgumentException(OVER_LENGTH_TITLE.getMessage());
-        }
-        //입력이 비어있는 경우(공백) 검증
-        if(title.trim().isEmpty()) {
-            throw new IllegalArgumentException(EMPTY_TITLE.getMessage());
         }
     }
 

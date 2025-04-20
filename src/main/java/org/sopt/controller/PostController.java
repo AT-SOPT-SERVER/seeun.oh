@@ -6,6 +6,7 @@ import org.sopt.dto.req.PostCreateRequest;
 import org.sopt.dto.req.PostUpdateRequest;
 import org.sopt.dto.res.*;
 import org.sopt.service.PostService;
+import org.sopt.validation.PostValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,9 @@ public class PostController {
     public ResponseEntity<ApiResponse<PostCreateResponse>> createPost(
             @RequestBody PostCreateRequest postCreateRequest
     ) {
+        String inputTitle = postCreateRequest.title();
+        PostValidator.validateTitleLength(inputTitle);
+
         PostCreateResponse postCreateResponse = postService.createPost(postCreateRequest.title());
 
         return ResponseEntity.status(SuccessCode.CONTENT_CREATED.getStatus())
@@ -52,6 +56,9 @@ public class PostController {
             @PathVariable (name="contentId") Long contentId,
             @RequestBody PostUpdateRequest postUpdateRequest
     ) {
+        String updateTitle = postUpdateRequest.title();
+        PostValidator.validateTitleLength(updateTitle);
+
         PostUpdateResponse updateItem = postService.updatePost(contentId, postUpdateRequest.title());
         return ResponseEntity.status(SuccessCode.UPDATE_CONTENT.getStatus())
                 .body(ApiResponse.success(SuccessCode.UPDATE_CONTENT, updateItem));
