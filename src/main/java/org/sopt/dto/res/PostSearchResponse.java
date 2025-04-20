@@ -1,6 +1,4 @@
-package org.sopt.dto;
-
-import org.springframework.http.HttpStatus;
+package org.sopt.dto.res;
 
 public record PostSearchResponse(
         Long contentId,

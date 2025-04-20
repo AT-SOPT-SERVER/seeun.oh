@@ -2,12 +2,12 @@ package org.sopt.controller;
 
 import org.sopt.common.ApiResponse;
 import org.sopt.common.SuccessCode;
-import org.sopt.dto.*;
+import org.sopt.dto.req.PostCreateRequest;
+import org.sopt.dto.req.PostUpdateRequest;
+import org.sopt.dto.res.*;
 import org.sopt.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 
 
 @RestController
@@ -21,18 +21,18 @@ public class PostController {
     }
 
     @PostMapping()
-    public ResponseEntity<ApiResponse<PostResponse>> createPost(
-            @RequestBody PostRequest postRequest
+    public ResponseEntity<ApiResponse<PostCreateResponse>> createPost(
+            @RequestBody PostCreateRequest postCreateRequest
     ) {
-        PostResponse postResponse = postService.createPost(postRequest.title());
+        PostCreateResponse postCreateResponse = postService.createPost(postCreateRequest.title());
 
         return ResponseEntity.status(SuccessCode.CONTENT_CREATED.getStatus())
-                .body(ApiResponse.success(SuccessCode.CONTENT_CREATED, postResponse));
+                .body(ApiResponse.success(SuccessCode.CONTENT_CREATED, postCreateResponse));
     }
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<PostListResponse>> getAllPosts() {
-        PostListResponse listResponse = postService.getAllPosts();
+    public ResponseEntity<ApiResponse<PostItemListResponse>> getAllPosts() {
+        PostItemListResponse listResponse = postService.getAllPosts();
         return ResponseEntity.status(SuccessCode.GET_ALL_CONTENT.getStatus())
                 .body(ApiResponse.success(SuccessCode.GET_ALL_CONTENT, listResponse));
     }
