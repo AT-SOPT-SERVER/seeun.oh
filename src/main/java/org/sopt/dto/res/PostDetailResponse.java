@@ -1,4 +1,4 @@
-package org.sopt.dto;
+package org.sopt.dto.res;
 
 public record PostDetailResponse(
         Long contentId,

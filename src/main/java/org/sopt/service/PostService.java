@@ -3,7 +3,7 @@ package org.sopt.service;
 
 import org.sopt.common.ErrorCode;
 import org.sopt.domain.Post;
-import org.sopt.dto.*;
+import org.sopt.dto.res.*;
 import org.sopt.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,23 +20,23 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse createPost(
+    public PostCreateResponse createPost(
             final String title
     ) {
         Post postEntity = Post.of(title);
         Post savedPost = postRepository.save(postEntity);
-        return PostResponse.from(savedPost);
+        return PostCreateResponse.from(savedPost);
     }
 
     @Transactional(readOnly = true)
-    public PostListResponse getAllPosts() {
+    public PostItemListResponse getAllPosts() {
         List<Post> posts = postRepository.findAll();
 
         List<PostItemResponse> postList =  posts.stream()
                 .map(post -> PostItemResponse.of(post.getId(), post.getTitle()))
                 .toList();
 
-        return PostListResponse.of(postList);
+        return PostItemListResponse.of(postList);
 
     }
 
