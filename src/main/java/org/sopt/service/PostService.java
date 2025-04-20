@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static org.sopt.exception.CommonException.DUPLICATE_TITLE;
+
 @Service
 public class PostService {
 
@@ -31,6 +33,9 @@ public class PostService {
         lastPost.ifPresent(post ->
             PostValidator.validateCoolTime(post.getCreatedAt())
         );
+
+        // 제목 중복 검증
+        checkDuplicateTitle(title);
 
         Post postEntity = Post.of(title);
         Post savedPost = postRepository.save(postEntity);
@@ -65,6 +70,9 @@ public class PostService {
         Post post = postRepository.findById(contentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
+        // 제목 중복 검증
+        checkDuplicateTitle(title);
+
         post.updateTitle(title);
 
         return PostUpdateResponse.of(post.getId(), post.getTitle());
@@ -86,6 +94,14 @@ public class PostService {
                 .toList();
 
         return PostSearchListResponse.of(searchList);
+    }
+
+    private void checkDuplicateTitle(final String title) {
+        // 제목 중복 검증
+        boolean isAlreadyExists = postRepository.existsByTitle(title);
+        if (isAlreadyExists) {
+            throw new IllegalArgumentException(DUPLICATE_TITLE.getMessage());
+        }
     }
 
 }
