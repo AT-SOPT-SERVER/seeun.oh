@@ -69,7 +69,7 @@ public class PostService {
             final String title
     ) {
         Post post = postRepository.findById(contentId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")); //2
+                .orElseThrow(() -> new PostNotFoundException(NOT_FOUND_ID));
 
         // 제목 중복 검증
         checkDuplicateTitle(title);
