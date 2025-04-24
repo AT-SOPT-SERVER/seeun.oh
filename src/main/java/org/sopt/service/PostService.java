@@ -2,8 +2,8 @@ package org.sopt.service;
 
 import org.sopt.domain.Post;
 import org.sopt.dto.res.*;
-import org.sopt.exception.InvalidRequestException;
-import org.sopt.exception.PostNotFoundException;
+import org.sopt.global.exception.InvalidRequestException;
+import org.sopt.global.exception.PostNotFoundException;
 import org.sopt.repository.PostRepository;
 import org.sopt.validation.PostValidator;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static org.sopt.exception.ErrorCode.DUPLICATE_TITLE;
-import static org.sopt.exception.ErrorCode.NOT_FOUND_ID;
+import static org.sopt.global.common.ErrorCode.DUPLICATE_TITLE;
+import static org.sopt.global.common.ErrorCode.NOT_FOUND_ID;
 
 @Service
 public class PostService {

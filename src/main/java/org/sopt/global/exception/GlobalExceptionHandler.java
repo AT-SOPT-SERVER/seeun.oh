@@ -1,6 +1,7 @@
-package org.sopt.exception;
+package org.sopt.global.exception;
 
-import org.sopt.common.ApiResponse;
+import org.sopt.global.common.ApiResponse;
+import org.sopt.global.common.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
