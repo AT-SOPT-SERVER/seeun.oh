@@ -1,7 +1,7 @@
 package org.sopt.controller;
 
-import org.sopt.common.ApiResponse;
-import org.sopt.exception.SuccessCode;
+import org.sopt.global.common.ApiResponse;
+import org.sopt.global.common.SuccessCode;
 import org.sopt.dto.req.PostCreateRequest;
 import org.sopt.dto.req.PostUpdateRequest;
 import org.sopt.dto.res.*;

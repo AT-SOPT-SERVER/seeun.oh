@@ -1,14 +1,14 @@
 package org.sopt.validation;
 
-import org.sopt.exception.InvalidRequestException;
-import org.sopt.exception.TooManyRequestException;
+import org.sopt.global.exception.InvalidRequestException;
+import org.sopt.global.exception.TooManyRequestException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static org.sopt.exception.ErrorCode.EMPTY_TITLE;
-import static org.sopt.exception.ErrorCode.OVER_LENGTH_TITLE;
-import static org.sopt.exception.ErrorCode.POST_DURATION;
+import static org.sopt.global.common.ErrorCode.EMPTY_TITLE;
+import static org.sopt.global.common.ErrorCode.OVER_LENGTH_TITLE;
+import static org.sopt.global.common.ErrorCode.POST_DURATION;
 import static org.sopt.util.GraphemeUtils.getLengthOfEmojiContainableText;
 
 public class PostValidator {

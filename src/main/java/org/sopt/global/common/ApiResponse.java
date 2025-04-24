@@ -1,8 +1,6 @@
-package org.sopt.common;
+package org.sopt.global.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.sopt.exception.ErrorCode;
-import org.sopt.exception.SuccessCode;
 
 public class ApiResponse<T> {
     private int status;
