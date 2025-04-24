@@ -28,7 +28,7 @@ public class PostService {
     public PostCreateResponse createPost(
             final String title
     ) {
-        Optional<Post> lastPost = postRepository.findTopByOrderByCreatedAtDesc();
+        Optional<Post> lastPost = postRepository.getLatestPost();
 
         // 입력 시간 제한(3분) 검증
         lastPost.ifPresent(post ->
@@ -89,7 +89,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public PostSearchListResponse getListByKeyword(final String keyword) {
-        List<Post> posts = postRepository.findByTitleContaining(keyword);
+        List<Post> posts = postRepository.searchByKeyword(keyword);
         List<PostSearchResponse> searchList = posts.stream()
                 .map(post -> PostSearchResponse.of(post.getId(), post.getTitle()))
                 .toList();
