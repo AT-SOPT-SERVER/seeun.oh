@@ -10,12 +10,22 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String content;
     private LocalDateTime createdAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     public Post() {}
 
     public Post(String title) {
         this.title = title;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
         this.createdAt = LocalDateTime.now();
     }
 
