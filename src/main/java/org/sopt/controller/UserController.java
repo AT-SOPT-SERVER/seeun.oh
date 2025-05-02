@@ -24,6 +24,7 @@ public class UserController {
     public ResponseEntity<?> createUser(
             @RequestBody UserCreateRequest userCreateRequest
     ) {
+        System.out.println("test");
         UserValidator.validateUsernameLength(userCreateRequest.nickname());
         UserCreateResponse userCreateResponse = userService.saveUser(userCreateRequest);
 
