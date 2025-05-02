@@ -1,6 +1,7 @@
 package org.sopt.domain;
 
 import jakarta.persistence.*;
+import org.sopt.constant.Tag;
 
 import java.time.LocalDateTime;
 
@@ -16,17 +17,17 @@ public class Post {
     @JoinColumn(name="user_id")
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    private Tag tag;
+
     public Post() {}
 
-    public Post(String title) {
-        this.title = title;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public Post(String title, String content) {
+    public Post(String title, String content, User user, Tag tag) {
         this.title = title;
         this.content = content;
+        this.user = user;
         this.createdAt = LocalDateTime.now();
+        this.tag = tag;
     }
 
     public Long getId() {
@@ -37,15 +38,28 @@ public class Post {
         return this.title;
     }
 
+    public String getContent() {
+        return this.content;
+    }
+
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
-    public void updateTitle(final String newTitle) {
+    public User getUser() {
+        return this.user;
+    }
+
+    public Tag getTag() {
+        return this.tag;
+    }
+
+    public void updatePost(final String newTitle, final String newContent) {
         this.title = newTitle;
+        this.content = newContent;
     }
 
-    public static Post of(String title) {
-        return new Post(title);
+    public static Post of(String title, String content, User user, Tag tag) {
+        return new Post(title, content, user, tag);
     }
 }
