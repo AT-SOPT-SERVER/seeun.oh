@@ -11,12 +11,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String nickname;
 
     @OneToMany(mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
     protected User() {}
 
-    public User(String name) {
-        this.name = name;}
+    public Long getId() {
+        return id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public User(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public static User of(String nickname) {
+        return new User(nickname);
+    }
 }
