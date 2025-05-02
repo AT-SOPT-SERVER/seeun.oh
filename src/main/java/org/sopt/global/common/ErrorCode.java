@@ -12,9 +12,10 @@ public enum ErrorCode {
     EMPTY_CONTENT(HttpStatus.BAD_REQUEST, "내용은 비어있을 수 없습니다."),
     OVER_LENGTH_CONTENT(HttpStatus.BAD_REQUEST,"내용은 1000자 이하로 작성해 주세요."),
     EMPTY_USERNAME(HttpStatus.BAD_REQUEST, "유저의 이름은 비어있을 수 없습니다."),
-    OVER_LENGTH_USERNAME(HttpStatus.BAD_REQUEST,"유저의 이름은 1000자 이하로 작성해 주세요."),
+    OVER_LENGTH_USERNAME(HttpStatus.BAD_REQUEST,"유저의 이름은 10자 이하로 작성해 주세요."),
     NOT_FOUND_USER_AND_POST(HttpStatus.NOT_FOUND, "해당 유저가 작성한 게시글 중 존재하지 않는 게시글 ID 입니다."),
-    INVALID_TAG(HttpStatus.BAD_REQUEST, "태그는 백엔드, 데이터베이스, 인프라 중 하나를 입력해주세요.");
+    INVALID_TAG(HttpStatus.BAD_REQUEST, "태그는 백엔드, 데이터베이스, 인프라 중 하나를 입력해주세요."),
+    DUPLICATE_NICKNAME(HttpStatus.BAD_REQUEST, "이미 존재하는 닉네임입니다. 닉네임은 중복될 수 없습니다.");
 
     private final HttpStatus status;
     private final String message;
