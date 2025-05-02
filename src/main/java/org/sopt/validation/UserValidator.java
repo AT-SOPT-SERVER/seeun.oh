@@ -2,7 +2,8 @@ package org.sopt.validation;
 
 import org.sopt.global.exception.InvalidRequestException;
 
-import static org.sopt.global.common.ErrorCode.*;
+import static org.sopt.global.exception.UserErrorCode.EMPTY_USERNAME;
+import static org.sopt.global.exception.UserErrorCode.OVER_LENGTH_USERNAME;
 import static org.sopt.util.GraphemeUtils.getLengthOfEmojiContainableText;
 
 public class UserValidator {
