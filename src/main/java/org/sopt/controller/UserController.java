@@ -1,8 +1,11 @@
 package org.sopt.controller;
 
-import org.sopt.dto.req.UserCreateRequest;
+import org.sopt.dto.user.req.UserCreateRequest;
+import org.sopt.dto.user.res.UserCreateResponse;
+import org.sopt.global.common.ApiResponse;
+import org.sopt.global.common.SuccessCode;
 import org.sopt.service.UserService;
-import org.springframework.http.HttpStatus;
+import org.sopt.validation.UserValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +21,13 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<Void> createUser(
+    public ResponseEntity<?> createUser(
             @RequestBody UserCreateRequest userCreateRequest
     ) {
-        userService.saveUser(userCreateRequest);
+        UserValidator.validateUsernameLength(userCreateRequest.nickname());
+        UserCreateResponse userCreateResponse = userService.saveUser(userCreateRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(SuccessCode.USER_CREATED.getStatus())
+                .body(ApiResponse.success(SuccessCode.USER_CREATED, userCreateResponse));
     }
 }
