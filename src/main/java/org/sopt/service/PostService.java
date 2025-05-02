@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static org.sopt.global.common.ErrorCode.*;
+import static org.sopt.global.exception.PostErrorCode.*;
 
 @Service
 public class PostService {

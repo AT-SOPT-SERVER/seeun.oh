@@ -2,7 +2,8 @@ package org.sopt.constant;
 
 import org.sopt.global.exception.InvalidRequestException;
 
-import static org.sopt.global.common.ErrorCode.INVALID_TAG;
+import static org.sopt.global.exception.PostErrorCode.INVALID_TAG;
+
 
 public enum Tag {
     BACKEND("백엔드"),

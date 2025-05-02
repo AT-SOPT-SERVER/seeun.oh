@@ -6,7 +6,7 @@ import org.sopt.global.exception.TooManyRequestException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static org.sopt.global.common.ErrorCode.*;
+import static org.sopt.global.exception.PostErrorCode.*;
 import static org.sopt.util.GraphemeUtils.getLengthOfEmojiContainableText;
 
 public class PostValidator {

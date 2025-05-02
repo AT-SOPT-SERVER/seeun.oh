@@ -8,7 +8,8 @@ import org.sopt.global.exception.UserNotFoundException;
 import org.sopt.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import static org.sopt.global.common.ErrorCode.*;
+import static org.sopt.global.exception.UserErrorCode.DUPLICATE_NICKNAME;
+import static org.sopt.global.exception.UserErrorCode.USER_NOT_FOUND;
 
 @Service
 public class UserService {
