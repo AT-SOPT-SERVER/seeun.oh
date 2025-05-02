@@ -3,11 +3,12 @@ package org.sopt.service;
 import org.sopt.domain.User;
 import org.sopt.dto.user.req.UserCreateRequest;
 import org.sopt.dto.user.res.UserCreateResponse;
+import org.sopt.global.exception.InvalidRequestException;
 import org.sopt.global.exception.UserNotFoundException;
 import org.sopt.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import static org.sopt.global.common.ErrorCode.USER_NOT_FOUND;
+import static org.sopt.global.common.ErrorCode.*;
 
 @Service
 public class UserService {
@@ -18,6 +19,7 @@ public class UserService {
     }
 
     public UserCreateResponse saveUser(UserCreateRequest userCreateRequest) {
+        checkDuplicateNickname(userCreateRequest.nickname());
         User user = User.of(userCreateRequest.nickname());
         User savedUser = userRepository.save(user);
 
@@ -27,5 +29,13 @@ public class UserService {
     public User getUser(final Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
+    }
+
+    private void checkDuplicateNickname(final String nickname) {
+        // 제목 중복 검증
+        boolean isAlreadyExistsNickname = userRepository.existsByNickname(nickname);
+        if (isAlreadyExistsNickname) {
+            throw new InvalidRequestException(DUPLICATE_NICKNAME);
+        }
     }
 }
